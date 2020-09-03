@@ -1,2 +1,51 @@
 # Computer-Graphics
-计算机图形学
+## 第一节课 创建窗口
+```cpp
+#include <iostream>
+#define GLEW_STATIC
+#include <GL/glew.h>
+#include<GLFW/glfw3.h>
+const GLint WIDTH = 800, HEIGHT = 600;
+int main()
+{
+	glfwInit();
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+	glfwWindowHint(GLFW_OPENGL_PROFILE,GLFW_OPENGL_CORE_PROFILE);
+	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+	glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
+
+	GLFWwindow* window = glfwCreateWindow(WIDTH, HEIGHT, "Learn OpenGL B18120517", nullptr, nullptr);
+	int screenWidth, screenHeight;
+	glfwGetFramebufferSize(window, &screenWidth, &screenHeight);
+
+	if (window == nullptr) {
+		std::cout << "Failed to create GLFW window" <<
+			std::endl;
+		glfwTerminate();
+		return  -1;
+	}
+
+	glfwMakeContextCurrent(window);
+	glewExperimental = GL_TRUE;
+
+	if (glewInit() != GLEW_OK) {
+		std::cout << "Failed to initialize GLEW" <<
+			std::endl;
+		glfwTerminate();
+		return -1;
+	}
+
+	while (!glfwWindowShouldClose(window)) {
+		glViewport(0, 0, screenWidth, screenHeight);
+		glfwPollEvents();
+		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+		glClear(GL_COLOR_BUFFER_BIT);
+
+		glfwSwapBuffers(window);
+	}
+	glfwTerminate();
+	return 0;
+}
+
+```
