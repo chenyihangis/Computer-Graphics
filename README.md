@@ -15,6 +15,9 @@ glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
 创建窗口
 ```cpp
 GLFWwindow* window = glfwCreateWindow(WIDTH, HEIGHT, "Learn OpenGL XXX", nullptr, nullptr);
+```
+虚拟缓存对应的真缓存中的像素，包含32位颜色缓存，24位深度缓存，8位模板缓存
+```cpp
 glfwGetFramebufferSize(window, &screenWidth, &screenHeight);
 glfwMakeContextCurrent(window);
 ```
