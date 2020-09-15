@@ -28,11 +28,11 @@ glfwMakeContextCurrent(window);
 ```cpp
 while (!glfwWindowShouldClose(window)) {
 	glViewport(0, 0, screenWidth, screenHeight);
-	glfwPollEvents();
-	glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-	glClear(GL_COLOR_BUFFER_BIT);
+	glfwPollEvents();//执行事件
+	glClearColor(0.2f, 0.3f, 0.3f, 1.0f);//最后一个参数是透明度，范围0~1
+	glClear(GL_COLOR_BUFFER_BIT);//清除颜色缓存
 
-	glfwSwapBuffers(window);
+	glfwSwapBuffers(window);//开启双缓存，一个在画一个在传送到屏幕
 }
 glfwTerminate();
 ```
@@ -145,3 +145,5 @@ glBindVertexArray(0);
 glDeleteVertexArrays(1, &VAO);
 glDeleteBuffers(1, &VBO);
 ```
+## 第三节课 画三角形（二）
+将编译、链接shader的部分放在shader.h中，并将着色器放入文件res/shader中
