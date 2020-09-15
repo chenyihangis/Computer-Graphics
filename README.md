@@ -30,3 +30,112 @@ while (!glfwWindowShouldClose(window)) {
 }
 glfwTerminate();
 ```
+## 第二节课 画三角形
+### 顶点着色器
+版本
+```cpp
+const GLchar* vertexShaderSource = "#version 330 core\n" 
+```
+position变量名；vec3(三维向量)类型，向量的每个分量都是浮点型；in表示这个变量要从外界输入；gl_Position预保留的变量，包含顶点信息，不需要定义；齐次坐标器（增加一维）
+```cpp
+"layout(location = 0) in vec3 position;\n"  
+"void main()\n"
+"{\n"
+"gl_Position = vec4(position.x, position.y, position.z, 1.0f);\n"
+"}";
+```
+### 边缘着色器
+```cpp
+const GLchar* fragmentShaderSource = "#version 330 core\n"
+"out vec4 color;\n"
+"void main()\n"
+"{\n"
+"color = vec4(1.0f, 0.5f, 0.2f, 1.0f);\n"
+"}";
+```
+### import and compile the shader
+```cpp
+GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
+glShaderSource(vertexShader, 1, &vertexShaderSource, NULL);
+glCompileShader(vertexShader);
+//check 
+GLint success;
+GLchar infoLog[512];
+glGetShaderiv(vertexShader, GL_COMPILE_STATUS, &success);
+if (!success) {
+	glGetShaderInfoLog(vertexShader, 512, NULL, infoLog);
+	std::cout << "ERROR::SHADER::VERTEX::COMPILATION_FAILED\n"
+		<< infoLog << std::endl;
+}
+
+GLuint fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
+glShaderSource(fragmentShader, 1, &fragmentShaderSource, NULL);
+glCompileShader(fragmentShader);
+
+glGetShaderiv(fragmentShader, GL_COMPILE_STATUS, &success);
+if (!success) {
+	glGetShaderInfoLog(fragmentShader, 512, NULL, infoLog);
+	std::cout << "ERROR::SHADER::FRAGMENT::COMPILATION_FAILED\n"
+		<< infoLog << std::endl;
+}
+```
+### creat the program and link the program
+```cpp
+GLuint shaderProgram = glCreateProgram();
+glAttachShader(shaderProgram, vertexShader);
+glAttachShader(shaderProgram, fragmentShader);
+glLinkProgram(shaderProgram);
+	
+glGetProgramiv(shaderProgram, GL_LINK_STATUS, &success);
+if (!success) {
+	glGetProgramInfoLog(shaderProgram, 512, NULL, infoLog);
+	std::cout << "ERROR::SHADER::PROGRAM::LINK_FAILED\n"
+		<< infoLog << std::endl;
+}
+glDeleteShader(vertexShader);
+glDeleteShader(fragmentShader);
+```
+### Draw Triangle
+```cpp
+GLfloat vertices[] =
+{
+	-0.5f,-0.5f,0.0f,0.5f,-0.5f,0.0f,0.0f,0.5f,0.0f
+};
+```
+VAO将数据和显存中的物理地址相对应，数据放在VBO里，VAO与VBO成对出现;一组数据若有不同的解读方式，可能有多个VAO，一个VAO一定要对应一个VBO
+```cpp
+GLuint VAO, VBO;
+glGenVertexArrays(1, &VAO);
+glGenBuffers(1, &VBO);
+glBindVertexArray(VAO);
+glBindBuffer(GL_ARRAY_BUFFER, VBO);
+```
+把顶点数据传输到显存的物理地址上
+```cpp
+glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+```
+参数“0”对应VAO的第一行，参数“3”和“ GL_FLOAT”输入三个浮点型，“ GL_FALSE”表示不需要进行标准化；“3 * sizeof(GLfloat)”表示步长，“(GLvoid*)0”第一个起始点在哪找
+```cpp
+glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), (GLvoid*)0);
+```
+允许使用
+```cpp
+glEnableVertexAttribArray(0);
+```
+解绑，与绑定顺序相反
+```cpp
+glBindBuffer(GL_ARRAY_BUFFER, 0);
+glBindVertexArray(0);
+```
+在while中加入
+```cpp
+glUseProgram(shaderProgram);
+glBindVertexArray(VAO);
+glDrawArrays(GL_TRIANGLES, 0, 3);
+glBindVertexArray(0);
+```
+最后
+```cpp
+glDeleteVertexArrays(1, &VAO);
+glDeleteBuffers(1, &VBO);
+```
