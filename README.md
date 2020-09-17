@@ -146,4 +146,4 @@ glDeleteVertexArrays(1, &VAO);
 glDeleteBuffers(1, &VBO);
 ```
 ## 第三节课 画三角形（二）
-将编译、链接shader的部分放在shader.h中，并将着色器放入文件res/shader中
+将编译、链接shader的部分放在shader.h中，并将着色器放入文件res/shader中，在主函数中的while循环里使用Use()函数。
