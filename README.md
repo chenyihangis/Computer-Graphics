@@ -108,7 +108,8 @@ GLfloat vertices[] =
 	-0.5f,-0.5f,0.0f,0.5f,-0.5f,0.0f,0.0f,0.5f,0.0f
 };
 ```
-VAO将数据和显存中的物理地址相对应，数据放在VBO里，VAO与VBO成对出现;一组数据若有不同的解读方式，可能有多个VAO，一个VAO一定要对应一个VBO
+VAO将数据和显存中的物理地址相对应，数据放在VBO里，VAO与VBO成对出现;一组数据若有不同的解读方式，可能有多个VAO，一个VAO一定要对应一个VBO；
+VAO用来解释VBO中的数据如何处理
 ```cpp
 GLuint VAO, VBO;
 glGenVertexArrays(1, &VAO);
