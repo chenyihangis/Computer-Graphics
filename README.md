@@ -114,6 +114,7 @@ VAO用来解释VBO中的数据如何处理
 GLuint VAO, VBO;
 glGenVertexArrays(1, &VAO);
 glGenBuffers(1, &VBO);
+//相链接
 glBindVertexArray(VAO);
 glBindBuffer(GL_ARRAY_BUFFER, VBO);
 ```
