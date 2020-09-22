@@ -124,11 +124,17 @@ glBindVertexArray(VAO);
 glBindBuffer(GL_ARRAY_BUFFER, VBO);
 ```
 把顶点数据传输到显存的物理地址上
-`glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);`
+```cpp
+glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+```
 参数“0”对应VAO的第一行，参数“3”和“ GL_FLOAT”输入三个浮点型，“ GL_FALSE”表示不需要进行标准化；“3 * sizeof(GLfloat)”表示步长，“(GLvoid*)0”第一个起始点在哪找
-`glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), (GLvoid*)0);`
+```cpp
+glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), (GLvoid*)0);
+```
 允许使用
-`glEnableVertexAttribArray(0);`
+```cpp
+glEnableVertexAttribArray(0);
+```
 解绑，与绑定顺序相反
 ```cpp
 glBindBuffer(GL_ARRAY_BUFFER, 0);
