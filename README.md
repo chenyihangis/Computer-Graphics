@@ -155,7 +155,7 @@ glDeleteBuffers(1, &VBO);
 ## 第三节课 画三角形（二）
 将编译、链接shader的部分放在shader.h中，并将着色器放入文件res/shader中，在主函数中的while循环里使用Use()函数。
 ## 第四节课 画矩形和彩色三角形
-###画矩形方法一：画两个三角形
+### 画矩形方法一：画两个三角形
 ```cpp
 GLfloat vertices[] =
 {
@@ -170,3 +170,37 @@ GLfloat vertices[] =
 	-0.5f,0.5f,0.0f //top left
 };
 ```
+### 画矩形方法二：索引顶点坐标
++ 优点：节约了存放顶点坐标的空间
++ 注意：这里的顶点颜色信息要一致，否则就是不同的顶点
+```cpp
+GLfloat vertices[] =
+{
+	0.5f,0.5f,0.0f, //top right
+	0.5f,-0.5f,0.0f, //bottom right
+	-0.5f,-0.5f,0.0f, //bottom left
+	-0.5f,0.5f,0.0f //top left
+};
+```
+索引顶点的序号
+```cpp
+unsigned int indices[] =
+{
+	0,1,3, //first triangle
+	1,2,3 //second triangle
+};
+```
+需要用EBO建立连接信息
+```cpp
+GLuint EBO;
+glGenBuffers(1, &EBO);
+glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,EBO);
+glBufferData(GL_ELEMENT_ARRAY_BUFFER,sizeof(indices), indices, GL_STATIC_DRAW);
+glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+```
+在循环中绑定EBO,并改变画图方式
+```
+glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+```
+最后删除`glDeleteBuffers(1, &EBO);`
