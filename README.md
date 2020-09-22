@@ -217,8 +217,7 @@ GLfloat vertices[] =
 	0.0f,0.5f,0.0f,   0.0f,0.0f,1.0f    
 };
 ```
-+ 顶点着色器
-顶点着色器没有输入，需要从显存里获取数据，得通过VAO获得。如location=0意味着从VAO中第一条指引中查找解读显存数据的方式。out输出。
+顶点着色器：顶点着色器没有输入，需要从显存里获取数据，得通过VAO获得。如location=0意味着从VAO中第一条指引中查找解读显存数据的方式。out输出。
 ```
 #version 330 core
 layout(location = 0) in vec3 position;
@@ -230,8 +229,7 @@ gl_Position = vec4(position.x, position.y, position.z, 1.0f);
 outColor = color;
 }
 ```
-+ 边缘着色器
-in传进。边缘着色器可以没有输出，这样就不画颜色，有输出一定就是唯一的输出颜色
+边缘着色器：in传进。边缘着色器可以没有输出，这样就不画颜色，有输出一定就是唯一的输出颜色
 ```
 #version 330 core
 in vec3 outColor;
