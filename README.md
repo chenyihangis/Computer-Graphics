@@ -181,6 +181,8 @@ GLfloat vertices[] =
 	-0.5f,-0.5f,0.0f, //bottom left
 	-0.5f,0.5f,0.0f //top left
 };
+//改为6个点
+glDrawArrays(GL_TRIANGLES, 0, 6)
 ```
 索引顶点的序号
 ```cpp
@@ -199,8 +201,10 @@ glBufferData(GL_ELEMENT_ARRAY_BUFFER,sizeof(indices), indices, GL_STATIC_DRAW);
 glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 ```
 在循环中绑定EBO,并改变画图方式
-```
+```cpp
 glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
 glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 ```
 最后删除`glDeleteBuffers(1, &EBO);`
+### 画彩色三角形
+
