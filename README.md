@@ -181,7 +181,7 @@ GLfloat vertices[] =
 	-0.5f,-0.5f,0.0f, //bottom left
 	-0.5f,0.5f,0.0f //top left
 };
-//改为6个点
+//画图的循环里改为6个点
 glDrawArrays(GL_TRIANGLES, 0, 6)
 ```
 索引顶点的序号
