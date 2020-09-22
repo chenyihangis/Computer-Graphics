@@ -169,6 +169,8 @@ GLfloat vertices[] =
 	-0.5f,-0.5f,0.0f, //bottom left
 	-0.5f,0.5f,0.0f //top left
 };
+//画图的循环里改为6个点
+glDrawArrays(GL_TRIANGLES, 0, 6)
 ```
 ### 画矩形方法二：索引顶点坐标
 + 优点：节约了存放顶点坐标的空间
@@ -181,8 +183,6 @@ GLfloat vertices[] =
 	-0.5f,-0.5f,0.0f, //bottom left
 	-0.5f,0.5f,0.0f //top left
 };
-//画图的循环里改为6个点
-glDrawArrays(GL_TRIANGLES, 0, 6)
 ```
 索引顶点的序号
 ```cpp
@@ -217,9 +217,8 @@ GLfloat vertices[] =
 	0.0f,0.5f,0.0f,   0.0f,0.0f,1.0f    
 };
 ```
-顶点着色器
-顶点着色器没有输入，需要从显存里获取数据，得通过VAO获得。如location=0意味着从VAO中第一条指引中查找解读显存数据的方式。
-out输出
++ 顶点着色器
+顶点着色器没有输入，需要从显存里获取数据，得通过VAO获得。如location=0意味着从VAO中第一条指引中查找解读显存数据的方式。out输出。
 ```
 #version 330 core
 layout(location = 0) in vec3 position;
@@ -231,7 +230,7 @@ gl_Position = vec4(position.x, position.y, position.z, 1.0f);
 outColor = color;
 }
 ```
-边缘着色器
++ 边缘着色器
 in传进。边缘着色器可以没有输出，这样就不画颜色，有输出一定就是唯一的输出颜色
 ```
 #version 330 core
@@ -244,9 +243,9 @@ color = vec4(outColor, 1.0f);
 ```
 改变参数,画图用原先的
 ```cpp
-glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), (GLvoid*)0);
+glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), (GLvoid*)0);//隔6个取
 glEnableVertexAttribArray(0);
-glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), (GLvoid*)(3*sizeof(GLfloat)));
+glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), (GLvoid*)(3*sizeof(GLfloat)));//从起始位置偏移3个浮点型数据位置开始
 glEnableVertexAttribArray(1);
 //画图
 glDrawArrays(GL_TRIANGLES, 0, 6);
