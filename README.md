@@ -1,7 +1,7 @@
 # Computer-Graphics
 ## 目录
 + 第一节课 [创建窗口](https://github.com/chenyihangis/Computer-Graphics/blob/master/README.md#%E7%AC%AC%E4%B8%80%E8%8A%82%E8%AF%BE-%E5%88%9B%E5%BB%BA%E7%AA%97%E5%8F%A3)
-+ 第二节课 画三角形
++ 第二节课 [画三角形](https://github.com/chenyihangis/Computer-Graphics/blob/master/README.md#%E7%AC%AC%E4%BA%8C%E8%8A%82%E8%AF%BE-%E7%94%BB%E4%B8%89%E8%A7%92%E5%BD%A2)
 + 第三节课 画三角形（二）
 + 第四节课 画矩形和彩色三角形
 ## 第一节课 创建窗口
