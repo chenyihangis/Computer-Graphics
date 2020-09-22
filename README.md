@@ -124,17 +124,11 @@ glBindVertexArray(VAO);
 glBindBuffer(GL_ARRAY_BUFFER, VBO);
 ```
 把顶点数据传输到显存的物理地址上
-```cpp
-glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-```
+`glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);`
 参数“0”对应VAO的第一行，参数“3”和“ GL_FLOAT”输入三个浮点型，“ GL_FALSE”表示不需要进行标准化；“3 * sizeof(GLfloat)”表示步长，“(GLvoid*)0”第一个起始点在哪找
-```cpp
-glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), (GLvoid*)0);
-```
+`glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), (GLvoid*)0);`
 允许使用
-```cpp
-glEnableVertexAttribArray(0);
-```
+`glEnableVertexAttribArray(0);`
 解绑，与绑定顺序相反
 ```cpp
 glBindBuffer(GL_ARRAY_BUFFER, 0);
@@ -155,3 +149,18 @@ glDeleteBuffers(1, &VBO);
 ## 第三节课 画三角形（二）
 将编译、链接shader的部分放在shader.h中，并将着色器放入文件res/shader中，在主函数中的while循环里使用Use()函数。
 ## 第四节课 画矩形和彩色三角形
+###画矩形方法一：画两个三角形
+```cpp
+GLfloat vertices[] =
+{
+	//first triangle
+	0.5f,0.5f,0.0f, //top right
+	0.5f,-0.5f,0.0f, //bottom right
+	-0.5f,0.5f,0.0f, //top left
+
+	//second triangle
+	0.5f,-0.5f,0.0f, // bottom right
+	-0.5f,-0.5f,0.0f, //bottom left
+	-0.5f,0.5f,0.0f //top left
+};
+```
