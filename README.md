@@ -3,7 +3,7 @@
 + 第一节课 [创建窗口](https://github.com/chenyihangis/Computer-Graphics/blob/master/README.md#%E7%AC%AC%E4%B8%80%E8%8A%82%E8%AF%BE-%E5%88%9B%E5%BB%BA%E7%AA%97%E5%8F%A3)
 + 第二节课 [画三角形](https://github.com/chenyihangis/Computer-Graphics/blob/master/README.md#%E7%AC%AC%E4%BA%8C%E8%8A%82%E8%AF%BE-%E7%94%BB%E4%B8%89%E8%A7%92%E5%BD%A2)
 + 第三节课 [画三角形（二）](https://github.com/chenyihangis/Computer-Graphics/blob/master/README.md#%E7%AC%AC%E4%B8%89%E8%8A%82%E8%AF%BE-%E7%94%BB%E4%B8%89%E8%A7%92%E5%BD%A2%E4%BA%8C)
-+ 第四节课 画矩形和彩色三角形
++ 第四节课 [画矩形和彩色三角形](https://github.com/chenyihangis/Computer-Graphics/blob/master/README.md#%E7%AC%AC%E5%9B%9B%E8%8A%82%E8%AF%BE-%E7%94%BB%E7%9F%A9%E5%BD%A2%E5%92%8C%E5%BD%A9%E8%89%B2%E4%B8%89%E8%A7%92%E5%BD%A2)
 ## 第一节课 创建窗口
 初始化、配置版本
 ```cpp
