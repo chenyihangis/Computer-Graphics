@@ -207,4 +207,47 @@ glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 ```
 最后删除`glDeleteBuffers(1, &EBO);`
 ### 画彩色三角形
-
+将颜色信息写入顶点中(删除原先的EBO的操作)
+```cpp
+GLfloat vertices[] =
+{
+	//position			//	color
+	-0.5f,-0.5f,0.0f, 1.0f,0.0f,0.0f,
+	0.5f,-0.5f,0.0f,  0.0f,1.0f,0.0f,
+	0.0f,0.5f,0.0f,   0.0f,0.0f,1.0f    
+};
+```
+顶点着色器
+顶点着色器没有输入，需要从显存里获取数据，得通过VAO获得。如location=0意味着从VAO中第一条指引中查找解读显存数据的方式。
+out输出
+```
+#version 330 core
+layout(location = 0) in vec3 position;
+layout (location = 1) in vec3 color;
+out vec3 outColor;
+void main()
+{
+gl_Position = vec4(position.x, position.y, position.z, 1.0f);
+outColor = color;
+}
+```
+边缘着色器
+in传进。边缘着色器可以没有输出，这样就不画颜色，有输出一定就是唯一的输出颜色
+```
+#version 330 core
+in vec3 outColor;
+out vec4 color;
+void main()
+{
+color = vec4(outColor, 1.0f);
+}
+```
+改变参数,画图用原先的
+```cpp
+glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), (GLvoid*)0);
+glEnableVertexAttribArray(0);
+glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), (GLvoid*)(3*sizeof(GLfloat)));
+glEnableVertexAttribArray(1);
+//画图
+glDrawArrays(GL_TRIANGLES, 0, 6);
+```
