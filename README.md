@@ -4,7 +4,7 @@
 + 第二节课 [画三角形](https://github.com/chenyihangis/Computer-Graphics/blob/master/README.md#%E7%AC%AC%E4%BA%8C%E8%8A%82%E8%AF%BE-%E7%94%BB%E4%B8%89%E8%A7%92%E5%BD%A2)
 + 第三节课 [画三角形（二）](https://github.com/chenyihangis/Computer-Graphics/blob/master/README.md#%E7%AC%AC%E4%B8%89%E8%8A%82%E8%AF%BE-%E7%94%BB%E4%B8%89%E8%A7%92%E5%BD%A2%E4%BA%8C)
 + 第四节课 [画矩形和彩色三角形](https://github.com/chenyihangis/Computer-Graphics/blob/master/README.md#%E7%AC%AC%E5%9B%9B%E8%8A%82%E8%AF%BE-%E7%94%BB%E7%9F%A9%E5%BD%A2%E5%92%8C%E5%BD%A9%E8%89%B2%E4%B8%89%E8%A7%92%E5%BD%A2)
-+ 第五节课 [添加纹理（一）](https://github.com/chenyihangis/Computer-Graphics/blob/master/README.md#%E7%AC%AC%E4%BA%94%E8%8A%82%E8%AF%BE-%E6%B7%BB%E5%8A%A0%E7%BA%B9%E7%90%86)
++ 第五节课 [添加纹理（一）](https://github.com/chenyihangis/Computer-Graphics/blob/master/README.md#%E7%AC%AC%E4%BA%94%E8%8A%82%E8%AF%BE-%E6%B7%BB%E5%8A%A0%E7%BA%B9%E7%90%86%E4%B8%80)
 ## 第一节课 创建窗口
 初始化、配置版本
 ```cpp
@@ -273,6 +273,15 @@ glDrawArrays(GL_TRIANGLES, 0, 6);
 总结：
 + 当纹理分辨率低而物体大时，GL_NEAREST和GL_LINEAR作为进行放大和缩小操作时纹理过滤的选择
 + 当纹理分辨率高而物体小时，用Mipmap
+### 着色器
+顶点着色器：读进二维的纹理坐标，并输出纹理坐标
+```cpp
+layout (location = 1) in vec2 textCoords;
+out vec2 textcoords;
+textcoords = textCoords;//main中
+```
+边缘着色器：输入纹理坐标
+```in vec2 textcoords;```
 ### 添加纹理
 头文件
 ```cpp
@@ -286,7 +295,9 @@ glGenTextures(1, &texture);
 glBindTexture(GL_TEXTURE_2D, texture);
 ```
 导入图片
-```unsigned char* image =SOIL_load_image("res/images/image1.jpg", &width, &height, 0, SOIL_LOAD_RGBA);```
+```cpp
+unsigned char* image =SOIL_load_image("res/images/image1.jpg", &width, &height, 0, SOIL_LOAD_RGBA);
+```
 设置
 ```cpp
 glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);//对U轴设置(S对应U轴)
