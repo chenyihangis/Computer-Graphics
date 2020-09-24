@@ -4,7 +4,7 @@
 + 第二节课 [画三角形](https://github.com/chenyihangis/Computer-Graphics/blob/master/README.md#%E7%AC%AC%E4%BA%8C%E8%8A%82%E8%AF%BE-%E7%94%BB%E4%B8%89%E8%A7%92%E5%BD%A2)
 + 第三节课 [画三角形（二）](https://github.com/chenyihangis/Computer-Graphics/blob/master/README.md#%E7%AC%AC%E4%B8%89%E8%8A%82%E8%AF%BE-%E7%94%BB%E4%B8%89%E8%A7%92%E5%BD%A2%E4%BA%8C)
 + 第四节课 [画矩形和彩色三角形](https://github.com/chenyihangis/Computer-Graphics/blob/master/README.md#%E7%AC%AC%E5%9B%9B%E8%8A%82%E8%AF%BE-%E7%94%BB%E7%9F%A9%E5%BD%A2%E5%92%8C%E5%BD%A9%E8%89%B2%E4%B8%89%E8%A7%92%E5%BD%A2)
-+ 第五节课 [添加纹理]
++ 第五节课 [添加纹理](https://github.com/chenyihangis/Computer-Graphics/blob/master/README.md#%E7%AC%AC%E4%BA%94%E8%8A%82%E8%AF%BE-%E6%B7%BB%E5%8A%A0%E7%BA%B9%E7%90%86)
 ## 第一节课 创建窗口
 初始化、配置版本
 ```cpp
@@ -254,14 +254,22 @@ glDrawArrays(GL_TRIANGLES, 0, 6);
 ### 纹理相关介绍
 + 纹理坐标：左下角(0,0)；右上角(1,1)；UV坐标轴
 + 超过纹理坐标范围，处理环绕方式有   
-   1. 重复：GL_REPEAT，即超过范围重复图案，边缘的衔接不是特别好
-   2. 镜像：GL_MIRRORED_REPEAT，即超过范围镜像表现图案，边缘衔接很好
-   3. 拉伸：GL_CLAMP_TO_EDGE，即超过范围会重复纹理坐标的边缘
-   4. 自定边缘颜色：GL_CLAMP_TO_BORDER，超过范围为自定的边缘颜色
+1. 重复：GL_REPEAT，即超过范围重复图案，边缘的衔接不是特别好
+2. 镜像：GL_MIRRORED_REPEAT，即超过范围镜像表现图案，边缘衔接很好
+3. 拉伸：GL_CLAMP_TO_EDGE，即超过范围会重复纹理坐标的边缘
+4. 自定边缘颜色：GL_CLAMP_TO_BORDER，超过范围为自定的边缘颜色
 ---
-+ 纹理的分辨率与映射物体的大小的相关处理（纹理过滤）：
++ 纹理过滤：
 1. 距离最近过滤：GL_NEAREST，选择离中心点最接近纹理坐标的那个像素。
 2. 线性过滤：GL_LINEAR，基于纹理坐标附近的纹理像素，进行线性插值，近似出附近纹理像素之间的颜色。一个纹理像素的中心距离纹理坐标越近，这个纹理像素的颜色对最终样本颜色的影响越大
-3. Mipmap：产生一个纹理金字塔，后一个纹理图像是前一个的一半。
-+ 对上述的具体情况应用：
-在一个很大的物体上应用一张低分辨率的纹理
+3. Mipmap：是一系列图案相同而大小不同的纹理图像。产生一个纹理金字塔，后一个纹理图像是前一个的一半。
+---
++ 纹理的分辨率与映射物体的大小的相关处理：
+1. 在一个很大的物体上应用一张低分辨率的纹理(用GL_NEAREST和GL_LINEAR)：
+   1. GL_LINEAR图案边缘平滑
+   2. GL_NEAREST图案边缘产生了锯齿，整体相对GL_LINEAR较清晰
+2. 纹理有较高的分辨率和映射物体较小：在Mipmap中选择最适合物体的大小的那个
+---
+总结：
++ 当纹理分辨率低而物体大时，GL_NEAREST和GL_LINEAR作为进行放大和缩小操作时纹理过滤的选择
++ 当纹理分辨率高而物体小时，用Mipmap
