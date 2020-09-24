@@ -4,7 +4,7 @@
 + 第二节课 [画三角形](https://github.com/chenyihangis/Computer-Graphics/blob/master/README.md#%E7%AC%AC%E4%BA%8C%E8%8A%82%E8%AF%BE-%E7%94%BB%E4%B8%89%E8%A7%92%E5%BD%A2)
 + 第三节课 [画三角形（二）](https://github.com/chenyihangis/Computer-Graphics/blob/master/README.md#%E7%AC%AC%E4%B8%89%E8%8A%82%E8%AF%BE-%E7%94%BB%E4%B8%89%E8%A7%92%E5%BD%A2%E4%BA%8C)
 + 第四节课 [画矩形和彩色三角形](https://github.com/chenyihangis/Computer-Graphics/blob/master/README.md#%E7%AC%AC%E5%9B%9B%E8%8A%82%E8%AF%BE-%E7%94%BB%E7%9F%A9%E5%BD%A2%E5%92%8C%E5%BD%A9%E8%89%B2%E4%B8%89%E8%A7%92%E5%BD%A2)
-+ 第五节课 [添加纹理](https://github.com/chenyihangis/Computer-Graphics/blob/master/README.md#%E7%AC%AC%E4%BA%94%E8%8A%82%E8%AF%BE-%E6%B7%BB%E5%8A%A0%E7%BA%B9%E7%90%86)
++ 第五节课 [添加纹理（一）](https://github.com/chenyihangis/Computer-Graphics/blob/master/README.md#%E7%AC%AC%E4%BA%94%E8%8A%82%E8%AF%BE-%E6%B7%BB%E5%8A%A0%E7%BA%B9%E7%90%86)
 ## 第一节课 创建窗口
 初始化、配置版本
 ```cpp
@@ -249,7 +249,7 @@ glEnableVertexAttribArray(1);
 //画图
 glDrawArrays(GL_TRIANGLES, 0, 6);
 ```
-## 第五节课 添加纹理
+## 第五节课 添加纹理（一）
 在物体表面添加图片信息
 ### 纹理相关介绍
 + 纹理坐标：左下角(0,0)；右上角(1,1)；UV坐标轴
@@ -260,8 +260,8 @@ glDrawArrays(GL_TRIANGLES, 0, 6);
 4. 自定边缘颜色：GL_CLAMP_TO_BORDER，超过范围为自定的边缘颜色
 ---
 + 纹理过滤：
-1. 距离最近过滤：GL_NEAREST，选择离中心点最接近纹理坐标的那个像素。
-2. 线性过滤：GL_LINEAR，基于纹理坐标附近的纹理像素，进行线性插值，近似出附近纹理像素之间的颜色。一个纹理像素的中心距离纹理坐标越近，这个纹理像素的颜色对最终样本颜色的影响越大
+1. GL_NEAREST:距离最近过滤,选择离中心点最接近纹理坐标的那个像素。
+2. GL_LINEAR:线性过滤，基于纹理坐标附近的纹理像素，进行线性插值，近似出附近纹理像素之间的颜色。一个纹理像素的中心距离纹理坐标越近，这个纹理像素的颜色对最终样本颜色的影响越大
 3. Mipmap：是一系列图案相同而大小不同的纹理图像。产生一个纹理金字塔，后一个纹理图像是前一个的一半。
 ---
 + 纹理的分辨率与映射物体的大小的相关处理：
@@ -273,3 +273,25 @@ glDrawArrays(GL_TRIANGLES, 0, 6);
 总结：
 + 当纹理分辨率低而物体大时，GL_NEAREST和GL_LINEAR作为进行放大和缩小操作时纹理过滤的选择
 + 当纹理分辨率高而物体小时，用Mipmap
+### 添加纹理
+头文件
+```cpp
+#include "SOIL2/SOIL2.h"
+#include "SOIL2/stb_image.h"
+```
+创建纹理对象并绑定
+```cpp
+GLuint texture;
+glGenTextures(1, &texture);
+glBindTexture(GL_TEXTURE_2D, texture);
+```
+导入图片
+```unsigned char* image =SOIL_load_image("res/images/image1.jpg", &width, &height, 0, SOIL_LOAD_RGBA);```
+设置
+```cpp
+glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);//对U轴设置(S对应U轴)
+glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);//对V轴设置(T对应V轴)
+//放大和缩小如何与纹理坐标相适应
+glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+```
