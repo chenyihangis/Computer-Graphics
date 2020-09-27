@@ -263,7 +263,7 @@ glDrawArrays(GL_TRIANGLES, 0, 6);
 + 纹理过滤：
 1. GL_NEAREST:距离最近过滤,选择离中心点最接近纹理坐标的那个像素。
 2. GL_LINEAR:线性过滤，基于纹理坐标附近的纹理像素，进行线性插值，近似出附近纹理像素之间的颜色。一个纹理像素的中心距离纹理坐标越近，这个纹理像素的颜色对最终样本颜色的影响越大
-3. Mipmap：是一系列图案相同而大小不同的纹理图像。产生一个纹理金字塔，后一个纹理图像是前一个的一半。
+3. Mipmap：是一系列图案相同而大小不同的纹理图像。产生一个纹理金字塔，第0层是图像的原图，经过高斯滤波产生下一层，后一层的纹理图像是前一个的一半。
 ---
 + 纹理的分辨率与映射物体的大小的相关处理：
 1. 在一个很大的物体上应用一张低分辨率的纹理(用GL_NEAREST和GL_LINEAR)：
@@ -308,5 +308,28 @@ glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 ```
 ## 第六节课 添加纹理（二）
-将图片传入显存里\n
-第0层图片，RGBA传四个，0边界处理，原图里获得RGBA信息，原图数据类型，原图
+接上。将图片从内存中传入显存里,glTexImage2D的各个参数：
++ 第二个参数：第0层图片；第三个参数：RGBA传入三个颜色加透明度信息；第四个第五个参数：图片的大小即宽和高
++ 第六个参数：边界处理；第七个参数：从图片里获得RGBA信息；第八个参数：图片数据类型；第九个参数：图片变量
+```cpp
+glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, image);
+SOIL_free_image_data(image);//释放图片变量
+glGenerateMipmap(GL_TEXTURE_2D);
+glBindTexture(GL_TEXTURE_2D, 0);
+```
+传入着色器的两种方式：
++ 静态：通过VAO（layout location）
++ 动态：即允许在运行过程中传入，使用标志位uniform（大小不超过1024K）
+在while循环里，开启一个标志位，不需要创建对象，与VAO不同（需要创建对象）；因为图片信息简单，只包含数据类型和图片的宽高
+```cpp
+glActiveTexture(GL_TEXTURE0);//GL_TEXTURE0已预设好了，相当于直接索引
+```
+将texture信息填入TEXTURE0
+```cpp
+glBindTexture(GL_TEXTURE_2D, texture);
+```
+glUniform* 函数,数字表示传进几个，第二个表示传进来的数据类型，i是整型，f是浮点型
+```cpp
+glUniform1i(glGetUniformLocation(shader.Program, "Texture"), 0);//第二个参数的“0”表示的就是TEXTURE0
+```
+最后删除```glDeleteTextures(1, &texture);```
