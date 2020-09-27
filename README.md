@@ -5,7 +5,7 @@
 + 第三节课 [画三角形（二）](https://github.com/chenyihangis/Computer-Graphics/blob/master/README.md#%E7%AC%AC%E4%B8%89%E8%8A%82%E8%AF%BE-%E7%94%BB%E4%B8%89%E8%A7%92%E5%BD%A2%E4%BA%8C)
 + 第四节课 [画矩形和彩色三角形](https://github.com/chenyihangis/Computer-Graphics/blob/master/README.md#%E7%AC%AC%E5%9B%9B%E8%8A%82%E8%AF%BE-%E7%94%BB%E7%9F%A9%E5%BD%A2%E5%92%8C%E5%BD%A9%E8%89%B2%E4%B8%89%E8%A7%92%E5%BD%A2)
 + 第五节课 [添加纹理（一）](https://github.com/chenyihangis/Computer-Graphics/blob/master/README.md#%E7%AC%AC%E4%BA%94%E8%8A%82%E8%AF%BE-%E6%B7%BB%E5%8A%A0%E7%BA%B9%E7%90%86%E4%B8%80)
-+ 第六节课
++ 第六节课 [添加纹理（二）](https://github.com/chenyihangis/Computer-Graphics/blob/master/README.md#%E7%AC%AC%E5%85%AD%E8%8A%82%E8%AF%BE-%E6%B7%BB%E5%8A%A0%E7%BA%B9%E7%90%86%E4%BA%8C)
 ## 第一节课 创建窗口
 初始化、配置版本
 ```cpp
@@ -320,6 +320,7 @@ glBindTexture(GL_TEXTURE_2D, 0);
 传入着色器的两种方式：
 + 静态：通过VAO（layout location）
 + 动态：即允许在运行过程中传入，使用标志位uniform（大小不超过1024K）
+---
 在while循环里，开启一个标志位，不需要创建对象，与VAO不同（需要创建对象）；因为图片信息简单，只包含数据类型和图片的宽高
 ```cpp
 glActiveTexture(GL_TEXTURE0);//GL_TEXTURE0已预设好了，相当于直接索引
