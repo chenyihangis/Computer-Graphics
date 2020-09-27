@@ -321,11 +321,19 @@ glBindTexture(GL_TEXTURE_2D, 0);
 传入着色器的两种方式：
 + 静态：通过VAO（layout location）
 + 动态：即允许在运行过程中传入，使用标志位uniform（大小不超过1024K）
----
 ### 边缘着色器
-加入```uniform sampler2D Texture;```
-主函数里改为```color=texture(Texture,textcoords);```
-
+加入,sample2D的类型为整型，是二维纹理，做采样
+```cpp
+uniform sampler2D Texture;
+```
+主函数里改为
+```cpp
+color=texture(Texture,textcoords);
+```
+若想设置透明度，下面的第二个参数表示透明度，以前均设为1.0f
+```cpp
+color = vec4(texture(Texture,textcoords).rgb,0.2f)
+```
 ---
 在while循环里，开启一个标志位，不需要创建对象，与VAO不同（需要创建对象）；因为图片信息简单，只包含数据类型和图片的宽高
 ```cpp
@@ -340,3 +348,8 @@ glUniform* 函数,数字表示传进几个，第二个表示传进来的数据�
 glUniform1i(glGetUniformLocation(shader.Program, "Texture"), 0);//第二个参数的“0”表示的就是TEXTURE0
 ```
 最后删除```glDeleteTextures(1, &texture);```
+### 图像颠倒
+完成以上操作，最后的运行结果图像是颠倒的。这是因为OpenGL的纹理坐标原点在图片最下面，而图片信息中的原点一般都在最上方。修改顶点着色器里的纹理坐标即可
+```cpp
+textcoords = vec2(textCoords.x,1-textCoords.y);
+```
