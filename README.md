@@ -5,6 +5,7 @@
 + 第三节课 [画三角形（二）](https://github.com/chenyihangis/Computer-Graphics/blob/master/README.md#%E7%AC%AC%E4%B8%89%E8%8A%82%E8%AF%BE-%E7%94%BB%E4%B8%89%E8%A7%92%E5%BD%A2%E4%BA%8C)
 + 第四节课 [画矩形和彩色三角形](https://github.com/chenyihangis/Computer-Graphics/blob/master/README.md#%E7%AC%AC%E5%9B%9B%E8%8A%82%E8%AF%BE-%E7%94%BB%E7%9F%A9%E5%BD%A2%E5%92%8C%E5%BD%A9%E8%89%B2%E4%B8%89%E8%A7%92%E5%BD%A2)
 + 第五节课 [添加纹理（一）](https://github.com/chenyihangis/Computer-Graphics/blob/master/README.md#%E7%AC%AC%E4%BA%94%E8%8A%82%E8%AF%BE-%E6%B7%BB%E5%8A%A0%E7%BA%B9%E7%90%86%E4%B8%80)
++ 第六节课
 ## 第一节课 创建窗口
 初始化、配置版本
 ```cpp
@@ -306,3 +307,6 @@ glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);//对V轴设置(T�
 glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 ```
+## 第六节课 添加纹理（二）
+将图片传入显存里\n
+第0层图片，RGBA传四个，0边界处理，原图里获得RGBA信息，原图数据类型，原图
