@@ -308,7 +308,8 @@ glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 ```
 ## 第六节课 添加纹理（二）
-接上。将图片从内存中传入显存里,glTexImage2D的各个参数：
+### 接上
+将图片从内存中传入显存里,glTexImage2D的各个参数：
 + 第二个参数：第0层图片；第三个参数：RGBA传入三个颜色加透明度信息；第四个第五个参数：图片的大小即宽和高
 + 第六个参数：边界处理；第七个参数：从图片里获得RGBA信息；第八个参数：图片数据类型；第九个参数：图片变量
 ```cpp
@@ -320,6 +321,10 @@ glBindTexture(GL_TEXTURE_2D, 0);
 传入着色器的两种方式：
 + 静态：通过VAO（layout location）
 + 动态：即允许在运行过程中传入，使用标志位uniform（大小不超过1024K）
+---
+### 边缘着色器
+加入```uniform sampler2D Texture;```
+主函数里改为```color=texture(Texture,textcoords);```
 
 ---
 在while循环里，开启一个标志位，不需要创建对象，与VAO不同（需要创建对象）；因为图片信息简单，只包含数据类型和图片的宽高
